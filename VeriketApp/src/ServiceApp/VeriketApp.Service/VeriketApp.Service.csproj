@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-VeriketApp.Service-87616f36-ac71-486b-ae3c-e84c9f83f624</UserSecretsId>
     <Description>Veriket Application Test Service</Description>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
