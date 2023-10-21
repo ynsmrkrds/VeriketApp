@@ -1,0 +1,44 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="Components" Directory="INSTALLFOLDER">
+      <!-- Create a single component which is the VeriketApp.Service.exe file -->
+      <Component Id="WindowsServiceComponent">
+        <!-- Copies the VeriketApp.Service.exe file using the project reference preprocessor variables -->
+        <File Id="VeriketApp.Service.exe"
+              Source="$(var.VeriketApp.Service.TargetDir)publish\VeriketApp.Service.exe"
+              KeyPath="true" />
+
+        <!-- Remove all files from the INSTALLFOLDER on uninstall -->
+        <RemoveFile Id="RemoveWindowsServiceFiles" Name="*.*" On="both" />
+        
+        <!-- Tell WiX to install the Service -->
+        <ServiceInstall Id="ServiceInstaller"
+                        Type="ownProcess"
+                        Name="VeriketApp.Service"
+                        DisplayName="Veriket Application Test"
+                        Description="Veriket Application Test Service"
+                        Start="auto"
+                        ErrorControl="normal" />
+
+        <!-- Tell WiX to start the Service -->
+        <ServiceControl Id="StartService"
+                        Start="install"
+                        Stop="uninstall"
+                        Remove="uninstall"
+                        Name="VeriketApp.Service"
+                        Wait="false"  />
+      </Component>
+
+      <!-- Create a single component which is the VeriketApp.Desktop.exe file -->
+      <Component Id="DesktopComponent">
+        <!-- Copies the VeriketApp.Service.exe file using the project reference preprocessor variables -->
+        <File Id="VeriketApp.Desktop.exe"
+              Source="$(var.VeriketApp.Desktop.TargetDir)publish\VeriketApp.Desktop.exe"
+              KeyPath="true" />
+
+        <!-- Remove all files from the INSTALLFOLDER on uninstall -->
+        <RemoveFile Id="RemoveDesktopFiles" Name="*.*" On="both" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
